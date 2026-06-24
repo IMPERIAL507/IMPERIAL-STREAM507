@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Imperial Stream 507 - Tu Portal de Entretenimiento Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ================= VARIABLES Y RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --gold: #d4a843; --gold-light: #f4d03f; --gold-dark: #b8860b;
+  --navy: #0a0e27; --navy-light: rgba(26, 31, 58, 0.85);
+  --blue-neon: #3b82f6; --red-neon: #ef4444; --green-neon: #10b981;
+  --text-light: #f8fafc; --text-muted: #94a3b8;
+  --glass-bg: rgba(14, 20, 56, 0.6);
+  --glass-border: rgba(212, 168, 67, 0.25);
+  --neon-shadow: 0 0 20px rgba(212, 168, 67, 0.4);
+}
+html { scroll-behavior: smooth; }
+
+/* ================= BACKGROUND ================= */
+body {
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--text-light);
+  overflow-x: hidden;
+  background-color: var(--navy);
+  /* Mantenemos tu imagen repetitiva con un gradiente radial para enfocar el centro */
+  background-image: radial-gradient(circle at center, rgba(10, 14, 39, 0.85) 0%, rgba(10, 14, 39, 0.98) 100%), url('FONDOWEB.JPG');
+  background-repeat: repeat; background-size: 380px; background-attachment: fixed;
+}
+
+/* ================= COMPONENTES GLOBALES (GLASSMORPHISM) ================= */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-panel:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: var(--neon-shadow); }
+
+.section-header { text-align: center; margin-bottom: 40px; position: relative; }
+.section-header h2 {
+  font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900;
+  background: linear-gradient(to right, var(--gold-light), var(--gold), #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-transform: uppercase; letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(212, 168, 67, 0.3);
+}
+.section-header p { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; }
+.divider { width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 15px auto; }
+
+/* ================= ANIMACIONES DE ENTRADA ================= */
+.observe-item { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.17, 0.84, 0.44, 1); }
+.observe-item.in-view { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+/* ================= NAVBAR & HERO ================= */
+.navbar { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 14, 39, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); }
+.nav-brand { display: flex; align-items: center; gap: 12px; font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; color: var(--gold); text-shadow: 0 0 10px rgba(212,168,67,0.5); }
+.nav-brand img { height: 45px; border-radius: 8px; border: 1px solid var(--gold); }
+
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px 40px; text-align: center; position: relative; }
+.hero-logo { width: 220px; border-radius: 20px; box-shadow: var(--neon-shadow); border: 2px solid var(--gold); margin-bottom: 30px; animation: floatLogo 4s ease-in-out infinite; }
+@keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); box-shadow: 0 15px 40px rgba(212, 168, 67, 0.6); } }
+.hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+.hero h1 span { color: var(--gold); text-shadow: var(--neon-shadow); }
+.hero p.tagline { font-size: 1.4rem; color: var(--gold-light); font-weight: 700; margin-bottom: 30px; letter-spacing: 1px; }
+
+/* Botones Premium */
+.btn-glow {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 35px; border-radius: 50px; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.1rem;
+  text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); color: var(--navy);
+  box-shadow: 0 0 20px rgba(212, 168, 67, 0.5); border: none; cursor: pointer;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.btn-glow::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: rgba(255,255,255,0.2); transform: rotate(45deg); transition: all 0.3s ease; opacity: 0; }
+.btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(212, 168, 67, 0.8); }
+.btn-glow:hover::after { opacity: 1; left: 100%; }
+
+/* ================= DOWNLOADER SECTION (LA JOYA DE LA CORONA) ================= */
+.downloader-section { padding: 80px 20px; position: relative; }
+.downloader-container { max-width: 900px; margin: 0 auto; }
+.steps-grid { display: grid; gap: 25px; margin-top: 40px; }
+.step-card { padding: 30px; display: flex; flex-direction: column; gap: 15px; position: relative; overflow: hidden; }
+.step-number { position: absolute; top: -20px; right: -10px; font-family: 'Orbitron', sans-serif; font-size: 8rem; font-weight: 900; color: rgba(212, 168, 67, 0.05); z-index: 0; line-height: 1; }
+.step-content { position: relative; z-index: 1; }
+.step-content h3 { color: var(--gold-light); font-size: 1.4rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.step-content p { color: var(--text-light); font-size: 1.05rem; line-height: 1.6; }
+.step-content span.highlight { color: #fff; font-weight: bold; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; }
+
+/* Códigos de Descarga Neón */
+.code-box-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+.code-box {
+  background: rgba(0,0,0,0.6); border: 2px dashed var(--gold); border-radius: 12px;
+  padding: 15px 25px; text-align: center; flex: 1; min-width: 200px;
+  box-shadow: inset 0 0 20px rgba(212, 168, 67, 0.1);
+}
+.code-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.code-number { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 0 0 15px var(--blue-neon); letter-spacing: 4px; }
+.code-box.alt { border-color: var(--blue-neon); }
+.code-box.alt .code-number { text-shadow: 0 0 15px var(--gold); color: var(--gold-light); }
+
+/* ================= PLANES & REVENDEDORES (MEJORADOS) ================= */
+.plans-section, .reseller-section { padding: 80px 20px; }
+.grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+.price-card { padding: 40px 25px; text-align: center; display: flex; flex-direction: column; height: 100%; position: relative; }
+.price-card.vip { border: 2px solid var(--gold); background: linear-gradient(180deg, rgba(212,168,67,0.1) 0%, rgba(14,20,56,0.8) 100%); }
+.vip-badge { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(90deg, var(--gold), #fff, var(--gold)); color: var(--navy); padding: 8px 25px; border-radius: 20px; font-weight: 900; font-family: 'Orbitron'; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(212,168,67,0.4); }
+.plan-name { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); letter-spacing: 2px; }
+.price-card.vip .plan-name { color: var(--gold-light); }
+.plan-price { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; color: #fff; margin: 15px 0; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+.plan-price span { font-size: 1.5rem; vertical-align: top; color: var(--gold); }
+.plan-features { list-style: none; margin: 25px 0; text-align: left; flex-grow: 1; }
+.plan-features li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; font-size: 1.05rem; }
+.plan-features li::before { content: '✔'; color: var(--green-neon); font-size: 1.2rem; font-weight: bold; text-shadow: 0 0 10px var(--green-neon); }
+.btn-card { display: block; width: 100%; padding: 15px; border-radius: 12px; font-family: 'Orbitron', sans-serif; font-weight: bold; text-transform: uppercase; text-decoration: none; color: #fff; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s; }
+.btn-card:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); box-shadow: 0 0 20px rgba(212,168,67,0.5); }
+.price-card.vip .btn-card { background: var(--gold); color: var(--navy); }
+
+/* ================= FAQ (ACORDEÓN MÁGICO) ================= */
+.faq-section { padding: 80px 20px; max-width: 800px; margin: 0 auto; }
+.faq-item { background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
+.faq-question { width: 100%; text-align: left; padding: 20px; background: transparent; border: none; color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+.faq-question:hover { background: rgba(212,168,67,0.1); }
+.faq-question span { transition: transform 0.3s; font-size: 1.5rem; color: var(--gold); }
+.faq-question.active span { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: rgba(0,0,0,0.2); }
+.faq-answer-content { padding: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05); }
+
+/* ================= FOOTER & WHATSAPP ================= */
+footer { background: rgba(0,0,0,0.9); padding: 40px 20px; text-align: center; border-top: 2px solid var(--gold); }
+.footer-logo { font-family: 'Orbitron'; font-size: 1.8rem; color: var(--gold); font-weight: 900; margin-bottom: 15px; }
+.social-links { margin: 20px 0; }
+.whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(37,211,102,0.5); z-index: 1000; transition: transform 0.3s; }
+.whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
+.whatsapp-float svg { width: 40px; height: 40px; fill: white; }
+
+/* Menú Móvil */
+.hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; }
+.hamburger span { width: 30px; height: 3px; background: var(--gold); transition: 0.3s; border-radius: 3px; }
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(10,14,39,0.98); flex-direction: column; align-items: center; justify-content: center; transition: right 0.4s ease; gap: 30px; border-left: 1px solid var(--gold); }
+  .nav-links.active { right: 0; }
+  .nav-links a { color: #fff; font-family: 'Orbitron'; font-size: 1.5rem; text-decoration: none; }
+  .hero h1 { font-size: 2.5rem; }
+  .plan-price { font-size: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navegación -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <img src="IMPERIAL.PNG.JPG" alt="Logo">
+    IMPERIAL 507
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#inicio">Inicio</a>
+    <a href="#instalacion">Instalación TV</a>
+    <a href="#planes">Planes</a>
+    <a href="#revendedores">Negocio</a>
+    <a href="#faq">Preguntas</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- WhatsApp Flotante -->
+<a href="https://wa.me/50768202278?text=Hola,%20quiero%20información%20de%20Imperial%20Stream" class="whatsapp-float" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Hero Section -->
+<section class="hero" id="inicio">
+  <img src="IMPERIAL.PNG.JPG" alt="Imperial Stream" class="hero-logo observe-item">
+  <h1 class="observe-item delay-1">IMPERIAL <span>STREAM</span> 507</h1>
+  <p class="tagline observe-item delay-2">El cine y el estadio en la sala de tu casa 🇵🇦</p>
+  <div class="observe-item delay-3">
+    <a href="#planes" class="btn-glow">Ver Planes Premium 🚀</a>
+  </div>
+</section>
+
+<!-- GUÍA DE INSTALACIÓN (SMART TV / FIRE STICK) -->
+<section class="downloader-section" id="instalacion">
+  <div class="section-header observe-item">
+    <h2>Instala en tu TV Fácil y Rápido</h2>
+    <div class="divider"></div>
+    <p>¿Tienes Fire TV Stick o Android TV? Sigue esta guía de 4 pasos.</p>
+  </div>
+
+  <div class="downloader-container">
+    <div class="steps-grid">
+      <!-- Paso 1 -->
+      <div class="glass-panel step-card observe-item delay-1">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>🔍 Descarga 'Downloader'</h3>
+          <p>Ve a la tienda de aplicaciones de tu TV (App Store / Google Play / Lupa de búsqueda) y escribe <span class="highlight">Downloader</span>. Es una app con fondo naranja y el ícono de una flecha hacia abajo. Instálala.</p>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="glass-panel step-card observe-item delay-2">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>⚙️ Da los Permisos Mágicos</h3>
+          <p>Esto es vital: Ve a la <b>Configuración</b> de tu TV > <b>Mi Fire TV</b> (o Dispositivo) > <b>Opciones para desarrolladores</b> > <span class="highlight">Instalar apps desconocidas</span> y asegúrate de encender/activar la opción para la app Downloader.</p>
+          <p style="font-size: 0.85rem; margin-top: 8px; color: var(--gold);"><i>*Si no ves "Opciones de desarrollador", ve a "Acerca de" y presiona 7 veces el botón OK sobre el nombre de tu dispositivo.</i></p>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="glass-panel step-card observe-item delay-3">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>🚀 Ingresa el Código de Imperial</h3>
+          <p>Abre la app Downloader. Verás una barra de búsqueda que dice "Enter a URL or Search Term". ¡Aquí es donde ocurre la magia! Escribe <b>solo los números</b> de una de nuestras apps:</p>
+          
+          <div class="code-box-container">
+            <div class="code-box">
+              <div class="code-label">Opción 1 (App Principal)</div>
+              <div class="code-number">9434022</div>
+            </div>
+            <div class="code-box alt">
+              <div class="code-label">Opción 2 (Respaldo)</div>
+              <div class="code-number">1463936</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="glass-panel step-card observe-item delay-1">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>🍿 Instala, Ingresa y Disfruta</h3>
+          <p>Presiona "GO". El archivo comenzará a descargarse automáticamente. Cuando termine, dale a <span class="highlight">Instalar</span>. Ábrela, pon tu usuario y contraseña que te dimos por WhatsApp, ¡y listo!</p>
+          <div style="margin-top: 15px;">
+            <a href="https://wa.me/50768202278?text=Hola,%20ya%20instalé%20la%20app%20en%20mi%20TV,%20quiero%20activar%20mi%20cuenta" class="btn-card" style="text-align:center;">Pedir mi Usuario por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES MENSUALES -->
+<section class="plans-section" id="planes">
+  <div class="section-header observe-item">
+    <h2>Nuestros Planes</h2>
+    <div class="divider"></div>
+    <p>Elige tu combo de entretenimiento.</p>
+  </div>
+
+  <div class="grid-cards">
+    <div class="glass-panel price-card observe-item delay-1">
+      <h3 class="plan-name">BÁSICO</h3>
+      <div class="plan-price"><span>$</span>5</div>
+      <p style="color: var(--text-muted);">1 Dispositivo / Pantalla</p>
+      <ul class="plan-features">
+        <li>+5000 Canales en Vivo</li>
+        <li>Películas y Series 2026</li>
+        <li>Deportes (Fútbol, NBA)</li>
+      </ul>
+      <a href="https://wa.me/50768202278?text=Quiero%20el%20plan%20de%20$5" class="btn-card">Comprar Ahora</a>
+    </div>
+
+    <div class="glass-panel price-card vip observe-item delay-2">
+      <div class="vip-badge">MÁS POPULAR ⭐</div>
+      <h3 class="plan-name">FAMILIAR</h3>
+      <div class="plan-price"><span>$</span>10</div>
+      <p style="color: var(--text-muted);">3 Dispositivos Simultáneos</p>
+      <ul class="plan-features">
+        <li>Todo el contenido Básico</li>
+        <li>Eventos PPV (UFC, Boxeo)</li>
+        <li>Calidad 4K / Full HD</li>
+        <li>Soporte Técnico VIP</li>
+      </ul>
+      <a href="https://wa.me/50768202278?text=Quiero%20el%20plan%20Familiar%20de%20$10" class="btn-card">Comprar Ahora</a>
+    </div>
+
+    <div class="glass-panel price-card observe-item delay-3">
+      <h3 class="plan-name">PREMIUM</h3>
+      <div class="plan-price"><span>$</span>15</div>
+      <p style="color: var(--text-muted);">5 Dispositivos Simultáneos</p>
+      <ul class="plan-features">
+        <li>Acceso Total Sin Límites</li>
+        <li>Ideal para toda la familia</li>
+        <li>Estrenos diarios automáticos</li>
+      </ul>
+      <a href="https://wa.me/50768202278?text=Quiero%20el%20plan%20Premium%20de%20$15" class="btn-card">Comprar Ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- PANELES DE REVENDEDORES -->
+<section class="reseller-section" id="revendedores">
+  <div class="section-header observe-item">
+    <h2>Empieza tu Propio Negocio</h2>
+    <div class="divider"></div>
+    <p>Sé dueño de tu tiempo siendo distribuidor de Imperial Stream.</p>
+  </div>
+
+  <div class="grid-cards">
+    <div class="glass-panel price-card observe-item delay-1">
+      <h3 class="plan-name">PANEL BÁSICO</h3>
+      <div class="plan-price" style="font-size: 2.5rem; margin: 10px 0; color:var(--blue-neon);">10 Créditos</div>
+      <h4 style="font-size: 1.8rem; color:var(--gold);">$15</h4>
+      <ul class="plan-features" style="margin-top: 15px;">
+        <li>Control total de clientes</li>
+        <li>Crea demos gratuitos</li>
+      </ul>
+      <a href="https://wa.me/50764216407?text=Info%20Panel%20Básico" class="btn-card">Empezar a Vender</a>
+    </div>
+
+    <div class="glass-panel price-card observe-item delay-2">
+      <h3 class="plan-name">PANEL ÉLITE</h3>
+      <div class="plan-price" style="font-size: 2.5rem; margin: 10px 0; color:var(--red-neon);">60 Créditos</div>
+      <h4 style="font-size: 1.8rem; color:var(--gold);">$60</h4>
+      <ul class="plan-features" style="margin-top: 15px;">
+        <li>Mayor margen de ganancia</li>
+        <li>Material de publicidad</li>
+      </ul>
+      <a href="https://wa.me/50764216407?text=Info%20Panel%20Élite" class="btn-card">Empezar a Vender</a>
+    </div>
+
+    <div class="glass-panel price-card vip observe-item delay-3">
+      <div class="vip-badge">NIVEL DIOS 👑</div>
+      <h3 class="plan-name">PANEL IMPERIAL</h3>
+      <div class="plan-price" style="font-size: 2rem; margin: 10px 0;">ILIMITADOS</div>
+      <h4 style="font-size: 1.8rem; color:var(--gold);">$175 <span style="font-size:0.8rem; color:#fff;">/MENSUAL</span></h4>
+      <ul class="plan-features" style="margin-top: 15px;">
+        <li>Vende sin límites de créditos</li>
+        <li>El negocio 100% tuyo</li>
+      </ul>
+      <a href="https://wa.me/50764216407?text=Quiero%20el%20Panel%20Ilimitado" class="btn-card">Comprar Panel</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES (FAQ) -->
+<section class="faq-section" id="faq">
+  <div class="section-header observe-item">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="faq-item observe-item delay-1">
+    <button class="faq-question">¿Necesito antena o cables? <span>+</span></button>
+    <div class="faq-answer"><div class="faq-answer-content">No. Imperial Stream funciona 100% por internet. Solo necesitas descargar nuestra aplicación en tu dispositivo y tener una conexión WiFi estable (recomendamos mínimo 15 Megas).</div></div>
+  </div>
+
+  <div class="faq-item observe-item delay-2">
+    <button class="faq-question">¿En qué dispositivos funciona? <span>+</span></button>
+    <div class="faq-answer"><div class="faq-answer-content">Funciona en casi todo: Amazon Fire TV Stick (muy recomendado), Smart TVs con Android TV, TV Box, Celulares Android, Tablets y Computadoras.</div></div>
+  </div>
+
+  <div class="faq-item observe-item delay-3">
+    <button class="faq-question">¿Cómo se paga el servicio? <span>+</span></button>
+    <div class="faq-answer"><div class="faq-answer-content">Aceptamos Yappy, transferencias bancarias en Panamá y Binance/USDT para clientes internacionales. Todo súper rápido por WhatsApp.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IMPERIAL STREAM 507</div>
+  <p style="color: var(--gold); margin-bottom: 10px;">La mejor estabilidad de Panamá y el Mundo</p>
+  <p style="color: var(--text-muted); font-size: 0.85rem;">© 2026 Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// Menú Hamburguesa
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('active'); });
+});
+
+// Acordeón FAQ Dinámico
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+  question.addEventListener('click', () => {
+    const activeQuestion = document.querySelector('.faq-question.active');
+    if (activeQuestion && activeQuestion !== question) {
+      activeQuestion.classList.remove('active');
+      activeQuestion.nextElementSibling.style.maxHeight = null;
+    }
+    question.classList.toggle('active');
+    const answer = question.nextElementSibling;
+    if (question.classList.contains('active')) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    } else {
+      answer.style.maxHeight = null;
+    }
+  });
+});
+
+// Observer para animaciones pro al hacer scroll
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target); // Solo anima una vez
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.observe-item').forEach(element => {
+  observer.observe(element);
+});
+</script>
+</body>
+</html>
