@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Imperial Stream 507 - La Mejor Señal, Orgullosamente Panameña</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --gold: #d4a843;
+  --gold-light: #f4d03f;
+  --gold-dark: #b8860b;
+  --navy: #0a0e27;
+  --navy-light: #1a1f3a;
+  --blue-accent: #1e3a8a;
+  --red-accent: #dc2626;
+  --text-light: #e2e8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--navy);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--navy);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-logo {
+  width: 180px;
+  height: 180px;
+  animation: logoReveal 2s ease-out forwards;
+  opacity: 0;
+  object-fit: contain;
+}
+
+@keyframes logoReveal {
+  0% { opacity: 0; transform: scale(0.5); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.loading-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  color: var(--gold);
+  margin-top: 25px;
+  letter-spacing: 2px;
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 15px rgba(212, 168, 67, 0.4); }
+  50% { text-shadow: 0 0 30px rgba(212, 168, 67, 0.8); }
+}
+
+/* Background Particles */
+.bg-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: float linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Navbar Móvil Pro */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 14, 39, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-brand span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(10, 14, 39, 0.98);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  list-style: none;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.1, 1, 0.1, 1);
+}
+
+.nav-links.active {
+  transform: translateX(0);
+}
+
+.nav-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.5rem;
+  font-family: 'Orbitron', sans-serif;
+  transition: color 0.3s;
+}
+
+.nav-links a:active {
+  color: var(--gold);
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--gold);
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* Hero Section */
+.hero {
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 90px 20px 40px;
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.2) 0%, var(--navy) 80%);
+  text-align: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-logo {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 20px;
+  border: 3px solid var(--gold);
+  border-radius: 15px;
+  box-shadow: 0 0 40px rgba(212, 168, 67, 0.3);
+  object-fit: contain;
+}
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.hero-subtitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.hero-tagline {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.hero-panama {
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 30px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  background: rgba(26, 31, 58, 0.5);
+  border: 1px solid rgba(212, 168, 67, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.stat-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Sections Global */
+section {
+  padding: 60px 15px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.7rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 10px auto;
+}
+
+/* Features (2 Columnas en Móvil) */
+.features {
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.feature-card {
+  background: rgba(26, 31, 58, 0.7);
+  border: 1px solid rgba(212, 168, 67, 0.15);
+  border-radius: 15px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.feature-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.feature-card p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Touch Slider / Carousel para Celulares */
+.slider-container {
+  overflow-x: auto;
+  display: flex;
+  gap: 16px;
+  padding: 10px 5px 25px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Oculta barra en Firefox */
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none; /* Oculta barra en Chrome/Safari */
+}
+
+.slider-card {
+  flex: 0 0 280px;
+  scroll-snap-align: center;
+}
+
+/* Indicador de deslizar con el dedo */
+.swipe-hint {
+  text-align: center;
+  color: rgba(212, 168, 67, 0.6);
+  font-size: 0.85rem;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  animation: pulseHint 1.5s infinite;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Plans Section */
+.plans {
+  background: var(--navy);
+}
+
+.plan-card {
+  background: rgba(26, 31, 58, 0.9);
+  border: 1px solid rgba(212, 168, 67, 0.2);
+  border-radius: 20px;
+  padding: 25px 20px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.plan-card.featured {
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 20px rgba(212, 168, 67, 0.15);
+}
+
+.plan-card.featured::after {
+  content: '⭐ POPULAR';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  padding: 3px 15px;
+  border-radius: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.plan-screens {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.plan-icons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.plan-icons .screen-icon {
+  width: 28px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--blue-accent), #2563eb);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+.plan-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.plan-price .currency {
+  font-size: 1.3rem;
+  vertical-align: top;
+}
+
+.plan-period {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+}
+
+.plan-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.plan-features li {
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-features li::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Botones de acción móvil */
+.btn-action {
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy);
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(212, 168, 67, 0.2);
+}
+
+.btn-action.featured-btn {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+/* Annual Plan Móvil */
+.annual-plan {
+  background: linear-gradient(145deg, rgba(212, 168, 67, 0.1), rgba(10, 14, 39, 0.95));
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  margin-top: 15px;
+}
+
+.annual-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  padding: 4px 15px;
+  border-radius: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.annual-plan h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.annual-savings {
+  color: #4ade80;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+/* Content Categories */
+.content-categories {
+  background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 100%);
+}
+
+.categories-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.category-card {
+  background: rgba(26, 31, 58, 0.8);
+  border: 1px solid rgba(212, 168, 67, 0.15);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.category-icon { font-size: 1.8rem; }
+
+.category-header h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.category-list li {
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-list li::before {
+  content: '✓';
+  color: var(--gold);
+}
+
+/* Resellers Section */
+.reseller-card {
+  background: rgba(26, 31, 58, 0.9);
+  border: 1px solid rgba(212, 168, 67, 0.2);
+  border-radius: 20px;
+  padding: 25px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.reseller-card.imperial-plus {
+  border: 2px solid var(--gold);
+}
+
+.reseller-level {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+.reseller-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.reseller-panel {
+  background: linear-gradient(135deg, var(--blue-accent), #2563eb);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.reseller-panel.imperial { background: linear-gradient(135deg, var(--red-accent), #991b1b); }
+.reseller-panel.imperial-plus { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); }
+
+.reseller-description {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.package-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(212, 168, 67, 0.08);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(212, 168, 67, 0.15);
+}
+
+.package-credits { font-weight: 700; color: var(--gold); font-size: 0.85rem;}
+.package-price { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: var(--gold); }
+
+.reseller-benefits {
+  list-style: none;
+  text-align: left;
+  margin: 15px 0;
+}
+
+.reseller-benefits li {
+  padding: 5px 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reseller-benefits li::before { content: '✓'; color: var(--gold); }
+
+/* Growth Plan Móvil */
+.growth-plan {
+  background: linear-gradient(145deg, rgba(212, 168, 67, 0.05), rgba(10, 14, 39, 0.95));
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: 25px 15px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.growth-plan h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 15px;
+}
+
+.growth-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.growth-step {
+  padding: 8px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: linear-gradient(135deg, var(--blue-accent), #2563eb);
+}
+.growth-step.imperial { background: linear-gradient(135deg, var(--red-accent), #991b1b); }
+.growth-step.imperial-plus { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); }
+
+.growth-plan p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.growth-highlight {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* Leagues Section (Grid de 2 Columnas) */
+.leagues {
+  background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 100%);
+}
+
+.leagues-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.league-card {
+  background: rgba(26, 31, 58, 0.7);
+  border: 1px solid rgba(212, 168, 67, 0.1);
+  border-radius: 12px;
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.league-icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+
+.league-card h4 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+/* Contact Box */
+.contact-box {
+  background: rgba(26, 31, 58, 0.9);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: 20px;
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.contact-box h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.contact-box p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.whatsapp-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  padding: 15px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.whatsapp-btn svg { width: 22px; height: 22px; fill: white; }
+
+/* Footer */
+.footer {
+  background: rgba(10, 14, 39, 0.95);
+  border-top: 1px solid rgba(212, 168, 67, 0.15);
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.footer p { color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; margin-bottom: 4px; }
+.footer-tagline { color: var(--gold); font-weight: 600; margin-top: 8px; font-size: 0.85rem; }
+
+/* Botón Flotante de WhatsApp para Celulares */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 999;
+  animation: pulseFloat 2s infinite;
+}
+
+.whatsapp-float svg { width: 32px; height: 32px; fill: white; }
+
+@keyframes pulseFloat {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Scroll Animation Elementos */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Pantalla de Carga Inteligente Móvil -->
+<div class="loading-screen" id="loadingScreen">
+  <img src="IMPERIAL.PNG.JPG" alt="Imperial Stream 507" class="loading-logo">
+  <div class="loading-text">IMPERIAL STREAM 507</div>
+</div>
+
+<!-- Botón Flotante Ultra Pro para Celular -->
+<a href="https://wa.me/50768202278?text=Hola,%20vengo%20de%20la%20página%20web%20y%20quiero%20más%20información." class="whatsapp-float" target="_blank" aria-label="Contacto Directo">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<div class="bg-particles" id="particles"></div>
+
+<!-- Navbar Móvil -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <img src="IMPERIAL.PNG.JPG" alt="Imperial Stream 507 Logo">
+    <span>IMPERIAL 507</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#caracteristicas">Características</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#contenido">Contenido</a></li>
+    <li><a href="#revendedores">Revendedores</a></li>
+    <li><a href="#ligas">Ligas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <img src="IMPERIAL.PNG.JPG" alt="Imperial Stream 507" class="hero-logo">
+    <h1 class="hero-title">IMPERIAL STREAM</h1>
+    <h2 class="hero-subtitle">507</h2>
+    <p class="hero-tagline">🌟 La Mejor Señal, Orgullosamente Panameña 🌟</p>
+    <p class="hero-panama">🇦 Todo el Deporte Mundial en un Solo Lugar 🇵🇦</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">En Vivo</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">+5000</div>
+        <div class="stat-label">Canales</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">+10K</div>
+        <div class="stat-label">Películas/VOD</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Estabilidad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Características Grid -->
+<section class="features" id="caracteristicas">
+  <div class="section-header reveal">
+    <h2>¿Por Qué Elegirnos?</h2>
+    <div class="section-divider"></div>
+    <p>Tecnología y calidad premium</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-icon">📺</span>
+      <h3>MILES DE CANALES</h3>
+      <p>Nacionales e internacionales en alta resolución.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">⚽</span>
+      <h3>DEPORTES EN VIVO</h3>
+      <p>Fútbol, Boxeo, UFC, NBA, MLB y más en tiempo real.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🎬</span>
+      <h3>ESTRENOS 2026</h3>
+      <p>Películas y series actualizadas semanalmente.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">📱</span>
+      <h3>CALIDAD HD & FHD</h3>
+      <p>Transmisiones optimizadas sin congelamientos.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">📺</span>
+      <h3>MULTI DISPOSITIVO</h3>
+      <p>Smart TV, Fire Stick, Celulares y TV Box.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">⚙️</span>
+      <h3>SOPORTE 24/7</h3>
+      <p>Equipo técnico siempre activo para ayudarte.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🔄</span>
+      <h3>AUTO-UPDATE</h3>
+      <p>El catálogo se actualiza solo sin pagar más.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🌍</span>
+      <h3>SEÑAL GLOBAL</h3>
+      <p>Disfruta de tu cuenta en cualquier parte del mundo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Planes Mensuales Slider Touch -->
+<section class="plans" id="planes">
+  <div class="section-header reveal">
+    <h2>Planes Mensuales</h2>
+    <div class="section-divider"></div>
+    <p>Desliza para ver todas las opciones disponibles con tu dedo 📲</p>
+  </div>
+  
+  <div class="swipe-hint">◀ Desliza de lado a lado ▶</div>
+
+  <div class="slider-container">
+    <div class="slider-card">
+      <div class="plan-card">
+        <div>
+          <div class="plan-screens">1 PANTALLA</div>
+          <div class="plan-icons"><div class="screen-icon">👤</div></div>
+          <div class="plan-price"><span class="currency">$</span>5</div>
+          <div class="plan-period">MENSUAL</div>
+          <ul class="plan-features">
+            <li>Acceso completo al catálogo</li>
+            <li>Deportes en vivo</li>
+            <li>Películas y series</li>
+            <li>Soporte técnico 24/7</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/50768202278?text=Hola!%20Me%20interesa%20adquirir%20el%20Plan%20de%201%20Pantalla%20por%20$5" class="btn-action" target="_blank">Adquirir Ya</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="plan-card">
+        <div>
+          <div class="plan-screens">2 PANTALLAS</div>
+          <div class="plan-icons"><div class="screen-icon">👤</div><div class="screen-icon">👤</div></div>
+          <div class="plan-price"><span class="currency">$</span>8</div>
+          <div class="plan-period">MENSUAL</div>
+          <ul class="plan-features">
+            <li>Todo lo del Plan Básico</li>
+            <li>Mayor comodidad familiar</li>
+            <li>Uso simultáneo en 2 equipos</li>
+            <li>Contenido actualizado</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/50768202278?text=Hola!%20Me%20interesa%20adquirir%20el%20Plan%20de%202%20Pantallas%20por%20$8" class="btn-action" target="_blank">Adquirir Ya</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="plan-card featured">
+        <div>
+          <div class="plan-screens">3 PANTALLAS</div>
+          <div class="plan-icons"><div class="screen-icon">👤</div><div class="screen-icon">👤</div><div class="screen-icon">👤</div></div>
+          <div class="plan-price"><span class="currency">$</span>10</div>
+          <div class="plan-period">MENSUAL</div>
+          <ul class="plan-features">
+            <li>Deportes internacionales premium</li>
+            <li>Estrenos exclusivos mundiales</li>
+            <li>Series completas en HD/FHD</li>
+            <li>Calidad de transmisión top</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/50768202278?text=Hola!%20Me%20interesa%20el%20Plan%20Popular%20de%203%20Pantallas%20por%20$10" class="btn-action featured-btn" target="_blank">¡El Más Vendido!</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="plan-card">
+        <div>
+          <div class="plan-screens">5 PANTALLAS</div>
+          <div class="plan-icons"><div class="screen-icon">👤</div><div class="screen-icon">👤</div><div class="screen-icon">👤</div><div class="screen-icon">👤</div><div class="screen-icon">👤</div></div>
+          <div class="plan-price"><span class="currency">$</span>15</div>
+          <div class="plan-period">MENSUAL</div>
+          <ul class="plan-features">
+            <li>Máximo nivel de entretenimiento</li>
+            <li>Todo el catálogo sin restricciones</li>
+            <li>UFC, Boxeo y Eventos Especiales</li>
+            <li>Ideal para familias grandes</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/50768202278?text=Hola!%20Me%20interesa%20el%20Plan%20Premium%20de%205%20Pantallas%20por%20$15" class="btn-action" target="_blank">Adquirir Ya</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="annual-plan reveal">
+    <div class="annual-badge">PLAN IMPERIAL</div>
+    <h3>12 MESES CONTINUOS</h3>
+    <div class="plan-price" style="margin: 10px 0;"><span class="currency">$</span>80</div>
+    <p class="annual-savings">💰 ¡Ahorro Masivo Garantizado!</p>
+    <ul class="plan-features">
+      <li>Un año completo de servicio sin cortes</li>
+      <li>Acceso total ilimitado premium</li>
+      <li>Prioridad VIP en soporte técnico</li>
+    </ul>
+    <a href="https://wa.me/50768202278?text=Hola!%20Quiero%20el%20Plan%20Anual%20Imperial%20de%20$80" class="btn-action" style="background: linear-gradient(135deg, #fff, var(--gold)); color: var(--navy);" target="_blank">Adquirir Plan Anual</a>
+  </div>
+</section>
+
+<!-- Categorías de Contenido -->
+<section class="content-categories" id="contenido">
+  <div class="section-header reveal">
+    <h2>Contenido Premium</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="categories-grid">
+    <div class="category-card reveal">
+      <div class="category-header">
+        <span class="category-icon">🎬</span>
+        <h3>CINE & SERIES</h3>
+      </div>
+      <ul class="category-list">
+        <li>Películas recién salidas del cine.</li>
+        <li>Series en tendencia mundial.</li>
+        <li>Actualizaciones constantes cada semana.</li>
+      </ul>
+    </div>
+    <div class="category-card reveal">
+      <div class="category-header">
+        <span class="category-icon">⚡</span>
+        <h3>EVENTOS TOP EN VIVO</h3>
+      </div>
+      <ul class="category-list">
+        <li>Boxeo Internacional & UFC en directo.</li>
+        <li>Fórmula 1, NBA, NFL y MLB completas.</li>
+        <li>Eliminatorias y torneos mundiales.</li>
+      </ul>
+    </div>
+    <div class="category-card reveal">
+      <div class="category-header">
+        <span class="category-icon">📺</span>
+        <h3>ENTRETENIMIENTO PREMIUM</h3>
+      </div>
+      <ul class="category-list">
+        <li>Canales Infantiles y Educativos.</li>
+        <li>Novelas, Documentales y Variedades.</li>
+        <li>Señales premium exclusivas 24/7.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Revendedores Slider Touch -->
+<section class="reseller" id="revendedores">
+  <div class="section-header reveal">
+    <h2>Plan de Crecimiento</h2>
+    <div class="section-divider"></div>
+    <p>Desliza para ver los paneles de distribución comercial 📈</p>
+  </div>
+
+  <div class="swipe-hint">◀ Desliza de lado a lado ▶</div>
+
+  <div class="slider-container">
+    <div class="slider-card">
+      <div class="reseller-card">
+        <div>
+          <div class="reseller-level">NIVEL ACCESIBLE</div>
+          <div class="reseller-title">BÁSICO</div>
+          <div class="reseller-panel">PANEL REVENDEDOR</div>
+          <p class="reseller-description">Ideal para emprender tu negocio y armar tu base inicial de clientes.</p>
+          <div class="package-item"><span class="package-credits">10 CRÉDITOS</span><span class="package-price">$15</span></div>
+          <div class="package-item"><span class="package-credits">30 CRÉDITOS</span><span class="package-price">$30</span></div>
+          <div class="package-item"><span class="package-credits">50 CRÉDITOS</span><span class="package-price">$50</span></div>
+        </div>
+        <a href="https://wa.me/50764216407?text=Hola!%20Deseo%20información%20sobre%20el%20Panel%20Revendedor%20Básico" class="btn-action" target="_blank">Iniciar Negocio</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="reseller-card">
+        <div>
+          <div class="reseller-level">NIVEL EXPANSIÓN</div>
+          <div class="reseller-title">ÉLITE</div>
+          <div class="reseller-panel" style="background: linear-gradient(135deg, #4f46e5, #7c3aed);">PANEL SÚPER REVENDEDOR</div>
+          <p class="reseller-description">Diseñado para aumentar ganancias y expandir volumen rápidamente.</p>
+          <div class="package-item"><span class="package-credits">60 CRÉDITOS</span><span class="package-price">$60</span></div>
+          <div class="package-item"><span class="package-credits">100 CRÉDITOS</span><span class="package-price">$80</span></div>
+          <div class="package-item"><span class="package-credits">200 CRÉDITOS</span><span class="package-price">$100</span></div>
+        </div>
+        <a href="https://wa.me/50764216407?text=Hola!%20Deseo%20información%20sobre%20el%20Panel%20Súper%20Revendedor%20Élite" class="btn-action" target="_blank">Subir a Élite</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="reseller-card imperial-plus">
+        <div>
+          <div class="reseller-level">NIVEL LÍDER</div>
+          <div class="reseller-title">IMPERIAL</div>
+          <div class="reseller-panel imperial">PANEL IMPERIAL</div>
+          <p class="reseller-description">Para líderes a gran escala enfocados en distribución masiva.</p>
+          <div class="package-item"><span class="package-credits">CRÉDITOS ILIMITADOS</span><span class="package-price">$175</span></div>
+          <div style="color: var(--gold); font-size: 0.75rem; font-weight: bold; margin-bottom: 15px;">RENOVABLES MENSUALMENTE</div>
+        </div>
+        <a href="https://wa.me/50764216407?text=Hola!%20Me%20interesa%20el%20Panel%20Imperial%20Ilimitado%20de%20$175" class="btn-action featured-btn" target="_blank">Comprar Panel</a>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="reseller-card imperial-plus">
+        <div>
+          <div class="reseller-level">NIVEL MÁXIMO</div>
+          <div class="reseller-title">IMPERIAL PLUS</div>
+          <div class="reseller-panel imperial-plus">PANEL IMPERIAL PLUS</div>
+          <p class="reseller-description">La máxima categoría de negocios en Imperial Stream 507.</p>
+          <div class="package-item"><span class="package-credits">CRÉDITOS ILIMITADOS</span><span class="package-price">$200</span></div>
+          <div style="color: var(--gold); font-size: 0.75rem; font-weight: bold; margin-bottom: 15px;">RENOVABLES MENSUALMENTE</div>
+        </div>
+        <a href="https://wa.me/50764216407?text=Hola!%20Quiero%20liderar%20al%20máximo%20nivel%20con%20el%20Panel%20Imperial%20Plus%20de%20$200" class="btn-action featured-btn" target="_blank">Liderar Ahora</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="growth-plan reveal">
+    <h3>PLAN DE CRECIMIENTO IMPERIAL</h3>
+    <div class="growth-steps">
+      <div class="growth-step">BÁSICO</div>
+      <div class="growth-step" style="background: linear-gradient(135deg, #4f46e5, #7c3aed);">ÉLITE</div>
+      <div class="growth-step imperial">IMPERIAL</div>
+      <div class="growth-step imperial-plus">IMPERIAL PLUS</div>
+    </div>
+    <p>No estás comprando créditos. Estás invirtiendo en una herramienta para construir tu propio negocio bajo tus reglas comerciales.</p>
+    <p class="growth-highlight">TU INVERSIÓN ABRE LA PUERTA. TU ESFUERZO CONSTRUYE EL IMPERIO.</p>
+  </div>
+</section>
+
+<!-- Ligas del Mundo (2 Columnas perfectas) -->
+<section class="leagues" id="ligas">
+  <div class="section-header reveal">
+    <h2>Ligas Disponibles</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="leagues-grid">
+    <div class="league-card reveal"><span class="league-icon">⚽</span><h4>Champions League</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><h4>Premier League</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🇪🇸</span><h4>LaLiga</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🇩🇪</span><h4>Bundesliga</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🇫🇷</span><h4>Ligue 1</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🇮🇹</span><h4>Serie A</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🇺🇸</span><h4>MLS</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🏆</span><h4>Libertadores</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🏀</span><h4>NBA</h4></div>
+    <div class="league-card reveal"><span class="league-icon">⚾</span><h4>MLB</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🏈</span><h4>NFL</h4></div>
+    <div class="league-card reveal"><span class="league-icon">🥊</span><h4>UFC</h4></div>
+  </div>
+</section>
+
+<!-- Contacto -->
+<section class="contact" id="contacto">
+  <div class="section-header reveal">
+    <h2>Atención Directa</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-box reveal">
+    <h3>📲 Escríbenos por WhatsApp</h3>
+    <p>Soporte e instalación guiada inmediata para cualquier celular, Smart TV o dispositivo.</p>
+    <div class="whatsapp-buttons">
+      <a href="https://wa.me/50768202278" class="whatsapp-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Soporte Ventas 1
+      </a>
+      <a href="https://wa.me/50764216407" class="whatsapp-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Soporte Distribuidores
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">IMPERIAL STREAM 507</div>
+  <p>🇵🇦 Orgullosamente Panameño 🇵🇦</p>
+  <p>Señal en Vivo 24/7 | Transmisión Global</p>
+  <p class="footer-tagline">⭐ Somos tu mejor opción. Somos Imperial Stream 507. ⭐</p>
+  <p style="margin-top: 15px; font-size: 0.7rem;">© 2026 Imperial Stream 507. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// Manejo de la pantalla de carga móvil
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loadingScreen');
+    if(loader) loader.classList.add('hidden');
+  }, 2000);
+});
+
+// Partículas ligeras para no ralentizar el celular
+const particlesContainer = document.getElementById('particles');
+if (particlesContainer) {
+  for (let i = 0; i < 25; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    particle.style.animationDelay = Math.random() * 5 + 's';
+    particle.style.width = (Math.random() * 2 + 1) + 'px';
+    particle.style.height = particle.style.width;
+    particlesContainer.appendChild(particle);
+  }
+}
+
+// Menú Hamburguesa Táctil
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+if(hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+}
+
+// Scroll Reveal optimizado para móviles
+const revealElements = document.querySelectorAll('.reveal');
+const revealOnScroll = () => {
+  revealElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      el.classList.add('active');
+    }
+  });
+};
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// Animación rápida de números
+const counters = document.querySelectorAll('.stat-number');
+setTimeout(() => {
+  counters.forEach(counter => {
+    const text = counter.textContent;
+    if (text.includes('/') || text.includes('%')) return;
+    const target = parseInt(text.replace(/[^0-9]/g, ''));
+    if (isNaN(target)) return;
+    
+    let current = 0;
+    const step = target / 30;
+    const prefix = text.match(/^[^0-9]*/)[0];
+    const suffix = text.match(/[^0-9]*$/)[0];
+    
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        counter.textContent = text;
+        clearInterval(timer);
+      } else {
+        counter.textContent = prefix + Math.floor(current) + suffix;
+      }
+    }, 20);
+  });
+}, 2300);
+</script>
+
+</body>
+</html>
